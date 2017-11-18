@@ -1,18 +1,18 @@
 # Collections
 关于集合的源码分析<br>
 ## `ArrayList与LinkList`<br>
-###什么是ArrayList<br>
+### 什么是ArrayList<br>
 可以简单的认为是一个动态数组；实际上ArrayList就是用数组实现的，长度不够时，调用Arrays.copyOf方法，拷贝当前数组到一个新的长度更大的数组；<br>
-####ArrayList特点<br>
+#### ArrayList特点<br>
 随机访问速度快，插入和移除性能较差(数组的特点)；<br>
 支持null元素；<br>
 有顺序；<br>
 元素可以重复；<br>
 线程不安全；<br>
-####ArrayList接口及方法<br>
-#####Iterable接口<br>
+#### ArrayList接口及方法<br>
+##### Iterable接口<br>
 实现此接口以便支持foreach语法.<br>
-#####Collection接口<br>
+##### Collection接口<br>
 int size()方法：<br>
 返回集合的大小，在ArrayList类中有一个int类型的size私有属性，当调用size方法时，直接返回该属性；<br>
 boolean isEmpty()方法：<br>
@@ -43,7 +43,7 @@ void clear()方法：<br>
 boolean equals(Object o)和int hashCode()方法<br>
 在ArrayLisy中，上面两个方法都被重写，equals方法依次取出集合中的所有元素进行比较，通过元素的equals方法，判断是否相等，全部相等返回true；<br>
 hashCode方法的计算是通过所有元素的hashCode计算得到；顺便说下hashcode，在java中随处可见，一般用在HashMap, Hashtable, HashSet等等中，可用于减少equals方法的调用，快速访问元素等，其实就是散列表的概念，如比较元素先比较其hashcode，如果hashcode不相等，那么这两个元素肯定不相等，也就不用调用其equals方法了；<br>
-#####List接口<br>
+##### List接口<br>
 除了Collection中定义的方法为，该接口增加了以下方法<br>
 boolean addAll(int index, Collection<? extends E> c);<br>
 在ArrayList中，该方法是在指定位置处增加一个集合中的所有元素，该操作涉及数组移动；<br>
@@ -65,16 +65,16 @@ ListIterator<E> listIterator(int index);<br>
 返回listIterator迭代器，从特定的位置开始，该迭代器支持向前操作；<br>
 List<E> subList(int fromIndex, int toIndex);<br>
 返回下标在fromIndex和toIndex之间的元素集合；<br>
-#####RandomAccess, Cloneable, java.io.Serializable接口
+##### RandomAccess, Cloneable, java.io.Serializable接口
 这三个接口是标识接口，里面都是空的；<br>
 RandomAccess标识其支持快速随机访问；<br>
 Cloneable标识其支持对象复制；<br>
 Serializable标识其可序列化；<br>
-#####AbstractCollection类<br>
+##### AbstractCollection类<br>
 大部分方法前面已经说明过了，不过该类下的contains方法、toArray方法等，遍历的时候都是使用更加通用的迭代器方式进行遍历；<br>
-#####AbstractList类<br>
+##### AbstractList类<br>
 大部分方法前面已经说明过了，不过该类中有两个私有内部类Itr和ListItr，对应的分别是两个迭代器；<br>
-#####ArrayList类<br>
+##### ArrayList类<br>
 ArrayList的具体实现<br>
 成员属性：<br>
 private static final int DEFAULT_CAPACITY = 10;//初始容量<br>
@@ -92,7 +92,7 @@ public void trimToSize()<br>
 节省空间用的，ArrayList是通过数组实现的，大小不够时，增加数组长度，有可能出现数组长度大于ArrayList的size情况；<br>
 public void ensureCapacity(int minCapacity)<br>
 保证ArrayList能容纳minCapacity个元素；<br>
-###ArrayList与LinkList的区别<br>
+### ArrayList与LinkList的区别<br>
 1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 <br>
 2.对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。 <br>
 3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 <br>
