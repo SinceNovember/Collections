@@ -13,57 +13,57 @@
 ##### Iterable接口<br>
 实现此接口以便支持foreach语法.<br>
 ##### Collection接口<br>
-int size()方法：<br>
+int `size()`方法：<br>
 返回集合的大小，在ArrayList类中有一个int类型的size私有属性，当调用size方法时，直接返回该属性；<br>
-boolean isEmpty()方法：<br>
+boolean `isEmpty()`方法：<br>
 判断集合是否为空，在ArrayList中，通过判断size == 0来判断集合是否为空；<br>
-boolean contains(Object o)方法：<br>
+boolean `contains(Object o)`方法：<br>
 判断集合是否含有对象o，在ArrayList中，通过判断indexOf(o) >= 0来判断是否含有o对象；<br>
 查看indexOf(o)方法，代码如下，主要功能是返回元素第一次出现时的下标索引，所以当下标索引大于等于0时，表示集合中存在该元素：<br>
-Iterator<E> iterator()方法：<br>
+`Iterator<E> iterator()`方法：<br>
 返回一个迭代器对象，用于遍历集合，事实上，ArrayList类里有两个内部类ArrayList.Itr和ArrayList.ListItr，分别对应Iterator迭代器和ListIterator迭代器，后者比前者功能更加强大；从ArrayList.ListItr继承自ArrayList.Itr就可以看出来，ListIterator迭代器支持更多的操作，如判断前面还有没有元素，即hasPrevious()方法，等；<br>
-Object[] toArray()方法：<br>
-将集合ArrayList转换成Object数组,有时候需要用到数组的一些api时，可以使用该方法，注意返回的结果是Object类型的数组，如果想返回指定类型的数组，可以使用以下方法，<T> T[] toArray(T[] a);<br>
-<T> T[] toArray(T[] a)方法：<br>
+Object[] `toArray()`方法：<br>
+将集合ArrayList转换成`Object`数组,有时候需要用到数组的一些api时，可以使用该方法，注意返回的结果是Object类型的数组，如果想返回指定类型的数组，可以使用以下方法，`<T>T[]toArray(T[] a)`;<br>
+`<T> T[] toArray(T[] a)`方法：<br>
 集合转数组，返回指定类型的数组，注意入参T[] a需要指定数组存储的空间，返回值为指定类型的数组；举个例子，假如有一个Integer类型的集合，如果想把它转换成Integer类型的数组，可以这样写：Integer[] arr = list.toArray(new Integer[list.size()]);<br>
-boolean add(E e)方法：<br>
+`boolean add(E e)`方法：<br>
 在集合最后面增加一个元素，在ArrayList中，其实现就是在其内部数组后面增加一个元素，不过要先保证内部数组长度足够<br>
-boolean remove(Object o)方法：<br>
+`boolean remove(Object o)`方法：<br>
 在集合中移除对象o，在ArrayList中，其实现较add方法复杂，涉及空对象判断，equals比较，数组移动等，性能相对较差；<br>
-boolean containsAll(Collection<?> c)方法：<br>
+`boolean containsAll(Collection<?> c)`方法：<br>
 判断是否包含集合c中的所有元素，在ArrayList中，其实现方法是遍历集合c中的每一个元素，调用contains方法，判断集合是否包含该元素，只要有一个不包含就返回false.<br>
-boolean addAll(Collection<? extends E> c)方法：<br>
+`boolean addAll(Collection<? extends E> c)`方法：<br>
 将集合c中的所有元素加到目标集合中去，在ArrayList中，其实现是先将集合c转换成数组，然后通过数组拷贝实现；<br>
-boolean removeAll(Collection<?> c)方法：<br>
+`boolean removeAll(Collection<?> c)`方法：<br>
 移除目标集合中含有‘集合c中元素’的所有元素，在ArrayList中，最终还是操作数组，性能相对较差；<br>
-boolean retainAll(Collection<?> c)方法：<br>
+`boolean retainAll(Collection<?> c)`方法：<br>
 移除目标集合中‘不包含集合c中元素’的所有元素，在ArrayList中removeAll方法和retainAll方法都是通过调用ArrayList的batchRemove方法来实现的，后续详细了解该方法的实现；<br>
-void clear()方法：<br>
+`void clear()`方法：<br>
 移除目标集合中的所有元素，在ArrayList中，就是将其内部数组所有元素赋null；<br>
-boolean equals(Object o)和int hashCode()方法<br>
+`boolean equals(Object o)和int hashCode()`方法<br>
 在ArrayLisy中，上面两个方法都被重写，equals方法依次取出集合中的所有元素进行比较，通过元素的equals方法，判断是否相等，全部相等返回true；<br>
 hashCode方法的计算是通过所有元素的hashCode计算得到；顺便说下hashcode，在java中随处可见，一般用在HashMap, Hashtable, HashSet等等中，可用于减少equals方法的调用，快速访问元素等，其实就是散列表的概念，如比较元素先比较其hashcode，如果hashcode不相等，那么这两个元素肯定不相等，也就不用调用其equals方法了；<br>
 ##### List接口<br>
 除了Collection中定义的方法为，该接口增加了以下方法<br>
-boolean addAll(int index, Collection<? extends E> c);<br>
+`boolean addAll(int index, Collection<? extends E> c)`;<br>
 在ArrayList中，该方法是在指定位置处增加一个集合中的所有元素，该操作涉及数组移动；<br>
-E get(int index);<br>
+`E get(int index);`<br>
 返回下标为index的元素；<br>
-E set(int index, E element);<br>
+`E set(int index, E element)`;<br>
 改变下标为index的元素的值<br>
-void add(int index, E element);<br>
+`void add(int index, E element)`;<br>
 在下标为index的地方插入元素element，该操作涉及数组移动；<br>
-E remove(int index);<br>
+`E remove(int index)`;<br>
 移除下标为index的元素，该操作涉及数组移动；<br>
-int indexOf(Object o);<br>
+`int indexOf(Object o)`;<br>
 返回元素o的最小下标，通过调用o的equals方法与集合中的元素进行比较；<br>
-int lastIndexOf(Object o);<br>
+`int lastIndexOf(Object o)`;<br>
 返回元素o的最大下标，通过调用o的equals方法与集合中的元素进行比较；<br>
-ListIterator<E> listIterator();<br>
+`ListIterator<E> listIterator()`;<br>
 返回listIterator迭代器，该迭代器支持向前操作；<br>
-ListIterator<E> listIterator(int index);<br>
+`ListIterator<E> listIterator(int index)`;<br>
 返回listIterator迭代器，从特定的位置开始，该迭代器支持向前操作；<br>
-List<E> subList(int fromIndex, int toIndex);<br>
+`List<E> subList(int fromIndex, int toIndex)`;<br>
 返回下标在fromIndex和toIndex之间的元素集合；<br>
 ##### RandomAccess, Cloneable, java.io.Serializable接口
 这三个接口是标识接口，里面都是空的；<br>
@@ -82,15 +82,15 @@ private static final Object[] EMPTY_ELEMENTDATA = {};//空ArrayList实例共享�
 private transient Object[] elementData; //真正存储ArrayList中的元素的数组；<br>
 private int size;//存储ArrayList的大小，注意不是elementData的长度；<br>
 除了其父接口定义的方法外，该类增加了以下方法<br>
-public ArrayList(int initialCapacity)：<br>
+`public ArrayList(int initialCapacity)`：<br>
 构造函数，指定初始大小<br>
-public ArrayList()<br>
+`public ArrayList()`<br>
 构造函数，使用共享的EMPTY_ELEMENTDATA空数组<br>
-public ArrayList(Collection<? extends E> c)<br>
+`public ArrayList(Collection<? extends E> c)`<br>
 构造函数，通过集合初始化ArrayList<br>
-public void trimToSize()<br>
+`public void trimToSize()`<br>
 节省空间用的，ArrayList是通过数组实现的，大小不够时，增加数组长度，有可能出现数组长度大于ArrayList的size情况；<br>
-public void ensureCapacity(int minCapacity)<br>
+`public void ensureCapacity(int minCapacity)`<br>
 保证ArrayList能容纳minCapacity个元素；<br>
 ### ArrayList与LinkList的区别<br>
 1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 <br>
