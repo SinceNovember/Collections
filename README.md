@@ -155,16 +155,16 @@ Iterator descendingIterator();<br>
 AbstractSequentialList类;<br>
  ##### AbstractSequentialList类<br>
  一个抽象类，基于迭代器实现数据的随机访问,以下方法的含义, 之前也说过，简单地说，就是数据的随机存取（利用了一个索引index）；<br>
-public E get(int index)
-public E set(int index, E element)
-public void add(int index, E element)
-public E remove(int index)
-public boolean addAll(int index, Collection<? extends E> c)
+public E get(int index)<br>
+public E set(int index, E element)<br>
+public void add(int index, E element)<br>
+public E remove(int index)<br>
+public boolean addAll(int index, Collection<? extends E> c)<br>
 ##### AbstractSequentialList类<br>
  一个抽象类，基于迭代器实现数据的随机访问,以下方法的含义, 之前也说过，简单地说，就是数据的随机存取（利用了一个索引index）；<br>
 public E get(int index)<br>
 public E set(int index, E element)<br>
-public void add(int index, E element)
+public void add(int index, E element)<br>
 public E remove(int index)<br>
 public boolean addAll(int index, Collection<? extends E> c)<br>
 ##### LinkedList类<br>
