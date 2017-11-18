@@ -160,11 +160,6 @@ public E set(int index, E element)
 public void add(int index, E element)
 public E remove(int index)
 public boolean addAll(int index, Collection<? extends E> c)
-##### LinkedList类
-### ArrayList与LinkList的区别<br>
-1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 <br>
-2.对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。 <br>
-3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 <br>
 ##### AbstractSequentialList类<br>
  一个抽象类，基于迭代器实现数据的随机访问,以下方法的含义, 之前也说过，简单地说，就是数据的随机存取（利用了一个索引index）；<br>
 public E get(int index)<br>
@@ -179,3 +174,7 @@ transient Node<E> last;  //队尾节点<br>
 LinkedList的节点内部类<br>
 poll方法,出队操作<br>
 public E get(int index)方法，随机访问方法<br>
+ ### ArrayList与LinkList的区别<br>
+1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 <br>
+2.对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。 <br>
+3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 <br>
