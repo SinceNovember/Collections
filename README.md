@@ -103,77 +103,76 @@ List接口的链表实现，并提供了一些队列，栈，双端队列操作�
 #### LinkedList接口及方法<br>
 关于Iterable接口、Collection接口、List接口、 Cloneable、 java.io.Serializable接口、AbstractCollection类、AbstractList类的相关说明，在介绍ArrayList的时候，已经有了个大概说明，这里将主要了解下Queue接口、Deque接口、AbstractSequentialList类以及LinkedList类；<br>
 ##### Queue接口<br>
-boolean add(E e);<br>
+`boolean add(E e)`;<br>
 将对象e插入队列尾部，成功返回true，失败（没有空间）抛出异常IllegalStateException；<br>
-boolean offer(E e);<br>
+`boolean offer(E e)`;<br>
 将对象e插入队列尾部，成功返回true，失败（没有空间）返回false；<br>
-E remove();<br>
+`E remove()`;<br>
 获取并移除队列头部元素，如果队列为空，抛出NoSuchElementException异常；<br>
-E poll();<br>
+`E poll()`;<br>
 获取并移除队列头部元素，如果队列为空，返回null；<br>
-E element();<br>
+`E element()`;<br>
 获取但不移除队列头部元素，如果队列为空，抛出NoSuchElementException异常；<br>
-E peek();<br>
+`E peek()`;<br>
 获取但不移除队列头部元素，如果队列为空，返回null；<br>
 ##### Deque接口<br>
 双端队列接口，继承队列接口，支持在队列两端进行入队和出队操作；<br>
 除了Collection接口Queue接口中定义的方法外，Deque还包括以下方法<br>
-void addFirst(E e);<br>
+`void addFirst(E e)`;<br>
 将对象e插入到双端队列头部，容间不足时，抛出IllegalStateException异常；<br>
-void addLast(E e);<br>
+`void addLast(E e)`;<br>
 将对象e插入到双端队列尾部，容间不足时，抛出IllegalStateException异常；<br>
-boolean offerFirst(E e);<br>
+`boolean offerFirst(E e)`;<br>
 将对象e插入到双端队列头部<br>
-boolean offerLast(E e);<br>
+`boolean offerLast(E e)`;<br>
 将对象e插入到双端队列尾部；<br>
-E removeFirst();<br>
+`E removeFirst()`;<br>
 获取并移除队列第一个元素，队列为空，抛出NoSuchElementException异常；<br>
-E removeLast();<br>
+`E removeLast()`;<br>
 获取并移除队列最后一个元素，队列为空，抛出NoSuchElementException异常；<br>
-E pollFirst();<br>
+`E pollFirst()`;<br>
 获取并移除队列第一个元素，队列为空，返回null；<br>
-E pollLast();<br>
+`E pollLast()`;<br>
 获取并移除队列最后一个元素，队列为空，返回null；<br>
-E getFirst();<br>
+`E getFirst()`;<br>
 获取队列第一个元素，但不移除，队列为空，抛出NoSuchElementException异常；<br>
-E getLast();<br><br>
+`E getLast()`;<br><br>
 获取队列最后一个元素，但不移除，队列为空，抛出NoSuchElementException异常；<br>
-E peekFirst();<br>
+`E peekFirst()`;<br>
 获取队列第一个元素，队列为空，返回null；<br>
-E peekLast();<br>
+`E peekLast()`;<br>
 获取队列最后一个元素，队列为空，返回null；<br>
-boolean removeFirstOccurrence(Object o)<br>
+`boolean removeFirstOccurrence(Object o)`<br>
 移除第一个满足 (o==null ? e==null : o.equals(e)) 的元素<br>
-boolean removeLastOccurrence(Object o);<br>
+`boolean removeLastOccurrence(Object o)`;<br>
 移除最后一个满足 (o==null ? e==null : o.equals(e)) 的元素<br>
-void push(E e);<br>
+`void push(E e)`;<br>
 将对象e插入到双端队列头部;<br>
-E pop();<br>
+`E pop()`;<br>
 移除并返回双端队列的第一个元素;<br>
-Iterator descendingIterator();<br>
+`Iterator descendingIterator()`;<br>
 双端队列尾部到头部的一个迭代器;<br>
-AbstractSequentialList类;<br>
  ##### AbstractSequentialList类<br>
  一个抽象类，基于迭代器实现数据的随机访问,以下方法的含义, 之前也说过，简单地说，就是数据的随机存取（利用了一个索引index）；<br>
-public E get(int index)<br>
-public E set(int index, E element)<br>
-public void add(int index, E element)<br>
-public E remove(int index)<br>
-public boolean addAll(int index, Collection<? extends E> c)<br>
+`public E get(int index)`<br>
+`public E set(int index, E element)`<br>
+`public void add(int index, E element)`<br>
+`public E remove(int index)`<br>
+`public boolean addAll(int index, Collection<? extends E> c)`<br>
 ##### AbstractSequentialList类<br>
  一个抽象类，基于迭代器实现数据的随机访问,以下方法的含义, 之前也说过，简单地说，就是数据的随机存取（利用了一个索引index）；<br>
-public E get(int index)<br>
-public E set(int index, E element)<br>
-public void add(int index, E element)<br>
-public E remove(int index)<br>
-public boolean addAll(int index, Collection<? extends E> c)<br>
+`public E get(int index)`<br>
+`public E set(int index, E element)`<br>
+`public void add(int index, E element)`<br>
+`public E remove(int index)`<br>
+`public boolean addAll(int index, Collection<? extends E> c)`<br>
 ##### LinkedList类<br>
 LinkedList中有两个关键成员属性，队头结点和队尾结点：<br>
-transient Node<E> first;  //队头节点<br>
-transient Node<E> last;  //队尾节点<br>
-LinkedList的节点内部类<br>
-poll方法,出队操作<br>
-public E get(int index)方法，随机访问方法<br>
+`transient Node<E> first``;  //队头节点<br>
+transient Node<E> last`;  //队尾节点<br>
+`LinkedList的节点内部类`<br>
+`poll方法,出队操作`<br>
+`public E get(int index)`方法，随机访问方法<br>
  ### ArrayList与LinkList的区别<br>
 1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 <br>
 2.对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。 <br>
