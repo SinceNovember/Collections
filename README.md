@@ -1,6 +1,6 @@
 # Collections
 关于集合的源码分析<br>
-Map集合源码分析:<a href="www.baidu.com">fenxi</a>
+Map集合源码分析:<a href="https://github.com/SinceNovember/Collections/blob/master/src/com/liu/Map/Map.md">fenxi</a>
 ## `ArrayList与LinkList`<br>
 ### 什么是ArrayList<br>
 可以简单的认为是一个动态数组；实际上ArrayList就是用数组实现的，长度不够时，调用Arrays.copyOf方法，拷贝当前数组到一个新的长度更大的数组；<br>
