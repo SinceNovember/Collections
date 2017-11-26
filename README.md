@@ -2,6 +2,8 @@
 关于集合的源码分析<br>
 ## 关于Map集合源码分析:<a href="https://github.com/SinceNovember/Collections/blob/master/src/com/liu/Map/Map.md">Map分析链接</a>
 ## `ArrayList与LinkList`<br>
+### ArrayList关系图
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/ArrayList.jpg)
 ### 什么是ArrayList<br>
 可以简单的认为是一个动态数组；实际上ArrayList就是用数组实现的，长度不够时，调用Arrays.copyOf方法，拷贝当前数组到一个新的长度更大的数组；<br>
 #### ArrayList特点<br>
@@ -93,6 +95,9 @@ private int size;//存储ArrayList的大小，注意不是elementData的长度�
 节省空间用的，ArrayList是通过数组实现的，大小不够时，增加数组长度，有可能出现数组长度大于ArrayList的size情况；<br>
 `public void ensureCapacity(int minCapacity)`<br>
 保证ArrayList能容纳minCapacity个元素；<br>
+## `LinkedList`
+### LinkedList关系图
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/LinkList.jpg)
 ### 什么是LinkedList<br>
 List接口的链表实现，并提供了一些队列，栈，双端队列操作的方法；<br>
 ### LinkedList特点<br>
