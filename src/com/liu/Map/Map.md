@@ -27,4 +27,21 @@ HashMap的put方法执行过程可以通过下图来理解:
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/10.png)
 因此，我们在扩充HashMap的时候，不需要像JDK1.7的实现那样重新计算hash，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”，可以看看下图为16扩充为32的resize示意图：
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/8.png)
-这个设计确实非常的巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。这一块就是JDK1.8新增的优化点。
+这个设计确实非常的巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。这一块就是JDK1.8新增的优化点。<br>
+### Map接口方法
+`int size()`：获取Map中Entry的长度。<br>
+`boolean isEmpty()`;判断Map是否为空。<br>
+`boolean containsKey(Object key)`;判断指定的key在Map中是否存在。<br>
+`boolean containsValue(Object value)`;判断指定的value在Map中是否存在。<br>
+`V get(Object key)`;通过指定的获取相应的值。<br>
+`V put(K key, V value)`;添加Entry实体元素。<br>
+`V remove(Object key)`;移除指定key的节点。<br>                                                                                            
+`void putAll(Map<? extends K, ? extends V> m)`;将Map结合元素全部添加到此Map中。<br> 
+`void clear()`;将Map中的元素全部清空。<br>
+`boolean replace(K key, V oldValue, V newValue)`;将指定的key-value实体，的值替换为指定值。<br>
+`Set<K> keySet();`返回Map中所有的key值存放到一个set中并返回。<br>
+` Collection<V> values();`返回Map中所有的value值存放到一个Collection中并返回。<br>
+ `Set<Map.Entry<K, V>> entrySet();`返回Map中所有的Entry值存放到一个Set中并返回。<br>
+ keySet与values以及entrySet中有个迭代器方法，其中包含：<br>
+ hashNext();判断是否还有下一个实体，返回布尔值。<br>
+ next();返回下一个尸体。<br>
