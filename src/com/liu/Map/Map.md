@@ -36,7 +36,7 @@ HashMap的put方法执行过程可以通过下图来理解:
 `V get(Object key)`;通过指定的获取相应的值。<br>
 `V put(K key, V value)`;添加Entry实体元素。<br>
 `V remove(Object key)`;移除指定key的节点。<br>                                                                                            
-`void putAll(Map<? extends K, ? extends V> m)`;将Map结合元素全部添加到此Map中。<br> 
+`void putAll(Map<?extendsK,?extendsV> m)`;将Map结合元素全部添加到此Map中。<br> 
 `void clear()`;将Map中的元素全部清空。<br>
 `boolean replace(K key, V oldValue, V newValue)`;将指定的key-value实体，的值替换为指定值。<br>
 `Set<K> keySet();`返回Map中所有的key值存放到一个set中并返回。<br>
