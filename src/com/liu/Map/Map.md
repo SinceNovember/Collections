@@ -41,7 +41,7 @@ HashMap的put方法执行过程可以通过下图来理解:
 `boolean replace(K key, V oldValue, V newValue)`;将指定的key-value实体，的值替换为指定值。<br>
 `Set<K> keySet();`返回Map中所有的key值存放到一个set中并返回。<br>
 ` Collection<V> values();`返回Map中所有的value值存放到一个Collection中并返回。<br>
- `Set<Map.Entry<K, V>> entrySet();`返回Map中所有的Entry值存放到一个Set中并返回。<br>
+`Set<Map.Entry<K, V>> entrySet();`返回Map中所有的Entry值存放到一个Set中并返回。<br>
  keySet与values以及entrySet中有个迭代器方法，其中包含：<br>
- `hashNext()`;判断是否还有下一个实体，返回布尔值。<br>
- `next()`;返回下一个实体。<br>
+`hashNext()`;判断是否还有下一个实体，返回布尔值。<br>
+`next()`;返回下一个实体。<br>
