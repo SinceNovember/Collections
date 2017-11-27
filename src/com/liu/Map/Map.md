@@ -54,4 +54,11 @@ HashMap的put方法执行过程可以通过下图来理解:
  keySet与values以及entrySet中有个迭代器方法，其中包含：<br>
 `hashNext()`;判断是否还有下一个实体，返回布尔值。<br>
 `next()`;返回下一个实体。<br>
-HashMap中基本的public方法也差不多这几个，并且方法内容差不多。
+Map.Entry实体中具有几个方法:
+`K getkey()`;获取实体中的键。<br>
+`V getValue()`;获取实体中的值。<br>
+`V setValue(V value)`;设置实体中的值。<br>
+`K setKey(K key)`;设置实体中的键。<br>
+`boolean equals(Object o)`;判断对象与实体是否相似。<br>
+`int hashCode()`;获取实体的hash值。<br>
+HashMap中基本的public方法也差不多这几个，并且方法内容差不多。<br>
