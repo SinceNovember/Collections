@@ -69,6 +69,11 @@ LinkedHashMap实现与HashMap的不同之处在于，后者维护着一个运行
 注意，此实现不是同步的。如果多个线程同时访问链接的哈希映射，而其中至少一个线程从结构上修改了该映射，则它必须保持外部同步。<br>
 ### `LinkedHashMap`的实现
    对于LinkedHashMap而言，它继承与HashMap、底层使用哈希表与双向链表来保存所有元素。其基本操作与父类HashMap相似，它通过重写父类相关的方法，来实现自己的链接列表特性。下面我们来分析LinkedHashMap的源代码：<br>
-   1) Entry元素：<br>
-   LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数组中保存的元素Entry，该Entry除了保存当前对象的引用外，还保存了其上一个元素before和下一个元素after的引用，从而在哈希表的基础上又构成了双向链接列表。<br>
+ 1) Entry元素：<br>
+LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数组中保存的元素Entry，该Entry除了保存当前对象的引用外，还保存了其上一个元素before和下一个元素after的引用，从而在哈希表的基础上又构成了双向链接列表。<br>
    ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedHashMap.jpg)
+### `LinkedHashMap`的特点
+  1.存储的顺序与插入的顺序一致
+  2.线程不安全
+  3.迭代的时候与输出的顺序一致
+其
