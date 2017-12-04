@@ -73,7 +73,16 @@ LinkedHashMap实现与HashMap的不同之处在于，后者维护着一个运行
 LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数组中保存的元素Entry，该Entry除了保存当前对象的引用外，还保存了其上一个元素before和下一个元素after的引用，从而在哈希表的基础上又构成了双向链接列表。<br>
    ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedHashMap.jpg)
 ### `LinkedHashMap`的特点
-  1.存储的顺序与插入的顺序一致
-  2.线程不安全
-  3.迭代的时候与输出的顺序一致
-其
+  1.存储的顺序与插入的顺序一致<br>
+  2.线程不安全<br>
+  3.迭代的时候与输出的顺序一致<br>
+### 重要方法分析
+ `newNode`函数<br>
+  此函数在HashMap类中也有实现，LinkedHashMap重写了该函数，所以当实际对象为LinkedHashMap，桶中结点类型为Node时，我们调用的是LinkedHashMap的newNode函数，而非HashMap的函数，newNode函数会在调用put函数时被调用。可以看到，除了新建一个结点之外，还把这个结点链接到双链表的末尾了，这个操作维护了插入顺序。<br>
+  `afterNodeAccess`函数<br>
+  此函数在很多函数（如put）中都会被回调，LinkedHashMap重写了HashMap中的此函数。若访问顺序为true，且访问的对象不是尾结点，则下面的图展示了访问前和访问后的状态，假设访问的结点为结点3:<br>
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedhashmap2.jpg)<br>
+  `transferLinks`函数<br>
+  此函数用dst结点替换结点，示意图如下:<br>
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedhashmap3.jpg)<br>
+  其他的使用方法基本和HashMap差不多。
