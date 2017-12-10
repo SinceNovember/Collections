@@ -164,36 +164,36 @@ D、n是p右子节点，p是g的左子节点。<br>
 ### `TreeMap的方法及用法`
  TreeMap的API：<br>
 `Entry<K, V> ceilingEntry(K key)` :比key指定的实体大的最小(包含自己)的实体.
-`K    ceilingKey(K key) ` 
-`void                       clear()`  
-`Object                     clone()`  
-`Comparator<? super K>      comparator()`  
-`boolean                    containsKey(Object key)`  
-`NavigableSet<K>            descendingKeySet()`  
-`NavigableMap<K, V>         descendingMap()`  
-`Set<Entry<K, V>>           entrySet()`
-`Entry<K, V>                firstEntry()`  
-`K                          firstKey()`  
-`Entry<K, V>                floorEntry(K key)`  
-`K                          floorKey(K key)`  
-`V                          get(Object key)`  
-`NavigableMap<K, V>         headMap(K to, boolean inclusive)`  
-`SortedMap<K, V>            headMap(K toExclusive)`  
-`Entry<K, V>                higherEntry(K key)`  
-`K                          higherKey(K key)`  
-`boolean                    isEmpty()`  
-`Set<K>                     keySet()`  
-`Entry<K, V>                lastEntry()`  
-`K                          lastKey()`  
-`Entry<K, V>                lowerEntry(K key)`  
-`K                          lowerKey(K key)`  
-`NavigableSet<K>            navigableKeySet()`  
-`Entry<K, V>                pollFirstEntry()`  
-`Entry<K, V>                pollLastEntry()`  
-`V                          put(K key, V value)`  
-`V                          remove(Object key)`  
-`int                        size()`  
-`SortedMap<K, V>            subMap(K fromInclusive, K toExclusive)`  
-`NavigableMap<K, V>         subMap(K from, boolean fromInclusive, K to, boolean toInclusive)`  
-`NavigableMap<K, V>         tailMap(K from, boolean inclusive)`  
-`SortedMap<K, V>            tailMap(K fromInclusive)`  
+`K    ceilingKey(K key) ` :比key大的最小(包含自己)的key.
+`void                       clear()`:清楚TreeMap.
+`Object                     clone()`:拷贝.<br>  
+`Comparator<? super K>      comparator()`:返回比较器.<br>
+`boolean                    containsKey(Object key)`:判断key是否存在.<br>  
+`NavigableSet<K>            descendingKeySet()`:递减的Key的Set集合.<br>
+`NavigableMap<K, V>         descendingMap()`:递减的NavigableMap.<br> 
+`Set<Entry<K, V>>           entrySet()`:实体Set集合.<br>
+`Entry<K, V>                firstEntry()`:第一个实体.<br>  
+`K                          firstKey()`:第一个key.<br>
+`Entry<K, V>                floorEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
+`K                          floorKey(K key)`:比key小的最大(包含自己)的key.<br> 
+`V                          get(Object key)`:通过key获取实体.<br>
+`NavigableMap<K, V>         headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to.<br>  
+`SortedMap<K, V>            headMap(K toExclusive)`:获取第一个到to位置的Map,不包含to.<br>    
+`Entry<K, V>                higherEntry(K key)`:比key大的最小的实体.<br>
+`K                          higherKey(K key)`:比key大的最小的实体.<br>  
+`boolean                    isEmpty()`:判断Map是否为空.<br>
+`Set<K>                     keySet()`:获取key的Set集合.<br>  
+`Entry<K, V>                lastEntry()`:最后一个实体.<br>  
+`K                          lastKey()`:最后一个key.<br>
+`Entry<K, V>                lowerEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
+`K                          lowerKey(K key)`:比key小的最大(包含自己)的key.<br>    
+`NavigableSet<K>            navigableKeySet()`:返回一个所有key的NavigableSet集合.<br>
+`Entry<K, V>                pollFirstEntry()`:删除第一个实体并返回.<br>  
+`Entry<K, V>                pollLastEntry()`:删除最后一个实体并返回.<br>
+`V                          put(K key, V value)`:存放制定的key-value到TreeMap中.<br>
+`V                          remove(Object key)`:移除指定key的实体并返回值.<br> 
+`int                        size()`:Map大小.<br>
+`SortedMap<K, V>            subMap(K fromInclusive, K toExclusive)`:返回from到to的Map不包含to.<br>  
+`NavigableMap<K, V>         subMap(K from, boolean fromInclusive, K to, boolean toInclusive)`:返回from到to的Map不包含to根据toInclusive说明是否包含to.<br> 
+`NavigableMap<K, V>         tailMap(K from, boolean inclusive)`:从from到尾部的Map集合,通过inclusive来判断是否包含自己.<br>
+`SortedMap<K, V>            tailMap(K fromInclusive)`::从from到尾部的Map集合,包含自己.<br>  
