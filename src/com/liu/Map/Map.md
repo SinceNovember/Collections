@@ -14,7 +14,7 @@
 7.遍历整个 Map 需要的时间与 桶(数组) 的长度成正比（因此初始化时 HashMap 的容量不宜太大）<br>
 8.两个关键因子：初始容量、加载因子。<br>
 ### 内部实现
-从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下如所示。
+&nbsp从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下如所示。
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/3.png)
 ###  分析HashMap的put方法
 HashMap的put方法执行过程可以通过下图来理解:
