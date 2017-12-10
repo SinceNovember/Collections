@@ -86,3 +86,15 @@ LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数�
   此函数用dst结点替换结点，示意图如下:<br>
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedhashmap3.jpg)<br>
   其他的使用方法基本和HashMap差不多。
+## `TreeMap`
+### `TreeMap的基本概念：`
+1.TreeMap集合是基于红黑树（Red-Black tree）的 NavigableMap实现。该集合最重要的特点就是可排序，该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。这句话是什么意思呢？就是说TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。<br>
+2.根据上一条，我们要想使用TreeMap存储并排序我们自定义的类（如User类），那么必须自己定义比较机制：一种方式是User类去实现Java.lang.Comparable接口，并实现其compareTo()方法。另一种方式是写一个类（如MyCompatator）去实现java.util.Comparator接口，并实现compare()方法，然后将MyCompatator类实例对象作为TreeMap的构造方法参数进行传参。<br>
+3.TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
+#### `红黑树简介 `
+红黑树又称红-黑二叉树，它首先是一颗二叉树，它具体二叉树所有的特性。同时红黑树更是一颗自平衡的排序二叉树。<br> 
+1、每个节点都只能是红色或者黑色 <br>
+2、根节点是黑色 <br>
+3、每个叶节点（NIL节点，空节点）是黑色的。 <br>
+4、如果一个结点是红的，则它两个子节点都是黑的。也就是说在一条路径上不能出现相邻的两个红色结点。 <br>
+5、从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 <br>
