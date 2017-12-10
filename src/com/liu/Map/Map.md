@@ -99,16 +99,16 @@ LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数�
 4、如果一个结点是红的，则它两个子节点都是黑的。也就是说在一条路径上不能出现相邻的两个红色结点。 <br>
 5、从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 <br>
 如图:<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/111.jpg)<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/1111.jpg)<br>
 #### `数据结构设计`
 和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
 作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/222.jpg)<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/2222.jpg)<br>
 #### `红黑树的插入操作`
 红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
 默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
 红黑树插入节点操作产生的不平衡来源于当前插入点和父节点的颜色冲突导致的（都是红色，违反规则2）。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/333.jpg)<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/3333.jpg)<br>
 如图4所示，由于节点插入之前红黑树是平衡的，因此可以断定祖父节点g必存在（规则1：根节点必须是黑色），且是黑色（规则2：不会有连续的红色节点），而叔父节点u颜色不确定，因此可以把问题分为两大类：<br>
 1、叔父节点是黑色（若是空节点则默认为黑色）<br>
 这种情况下通过旋转和变色操作可以使红黑树恢复平衡。但是考虑当前节点n和父节点p的位置又分为四种情况：<br>
