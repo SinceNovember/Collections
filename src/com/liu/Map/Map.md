@@ -104,6 +104,18 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
 >和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
 作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/2222.jpg)<br>
+#### `变色`
+>改变节点颜色比较容易理解，因为它违背了规则3。假设现在有个节点E，然后插入节点A和节点S，节点A在左子节点，S在右子节点，目前是平衡的。如果此时再插一个节点，那么就出现了不平衡了，因为红色节点的子节点必须为黑色，但是新插的节点是红色的。所以这时候就必须改变节点颜色了。所以我们将根的两个子节点从红色变为黑色（至于为什么都要变，下面插入的时候会详细介绍），将父节点会从黑色变成红色。可以用如下示意图表示一下：<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/changecolor.jpg)<br>
+#### `左旋`
+ >通常左旋操作用于将一个向右倾斜的红色链接旋转为向左链接。示意图如下：
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate2.jpg)<br>
+#### `右旋`
+ >右旋可左旋刚好相反，这里不再赘述，直接看示意图：
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate2.jpg)<br>
+  其实现的代码在程序中均有实现.
 #### `红黑树的插入操作`
 >红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
   默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
