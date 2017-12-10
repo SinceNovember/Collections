@@ -209,7 +209,8 @@ D、n是p右子节点，p是g的左子节点。<br>
 `NavigableMap<K, V>  tailMap(K from, boolean inclusive)`:从from到尾部的Map集合,通过inclusive来判断是否包含自己.<br>
 `SortedMap<K, V>     tailMap(K fromInclusive)`::从from到尾部的Map集合,包含自己.<br>  
 #### `接口方法的作用`
-`NaviableMap`接口的作用：
->实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
-`SortMap`接口的作用:主要用来实现排序功能.<br>
+>`NaviableMap`接口的作用：
+实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
+`SortMap`接口的作用:<br>
+主要用来实现排序功能.<br>
 ### `核心的几个功能分析`
