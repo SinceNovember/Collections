@@ -162,8 +162,7 @@ D、n是p右子节点，p是g的左子节点。<br>
         2.TreeMap集合默认会对键进行排序，所以键必须实现自然排序和定制排序中的一种 
         3.底层使用的数据结构是二叉树
 ### `TreeMap的方法及用法`
->
-`Entry<K, V> ceilingEntry(K key)` :比key指定的实体大的最小(包含自己)的实体.<br>
+>`Entry<K, V> ceilingEntry(K key)` :比key指定的实体大的最小(包含自己)的实体.<br>
 `K    ceilingKey(K key) ` :比key大的最小(包含自己)的key.<br>
 `void  clear()`:清楚TreeMap.
 `Object  clone()`:拷贝.<br>  
