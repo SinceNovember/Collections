@@ -3,7 +3,7 @@
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/Map.jpg)
 ## `HashMap`
 ### 什么`HashMap`
-  基于哈希表的一个Map接口实现，存储的对象是一个键值对对象(Node实现(Map.Entry(key,value)接口),它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，即任一时刻可以有多个线程同时写HashMap，可能会导致数据的不一致。如果需要满足线程安全，可以用 Collections的synchronizedMap方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。<br>
+>基于哈希表的一个Map接口实现，存储的对象是一个键值对对象(Node实现(Map.Entry(key,value)接口),它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，即任一时刻可以有多个线程同时写HashMap，可能会导致数据的不一致。如果需要满足线程安全，可以用 Collections的synchronizedMap方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。<br>
 ### HashMap特点
 1.底层实现是 链表数组，JDK 8 后又加了 红黑树<br>
 2.实现了 Map 全部的方法<br>
@@ -14,7 +14,7 @@
 7.遍历整个 Map 需要的时间与 桶(数组) 的长度成正比（因此初始化时 HashMap 的容量不宜太大）<br>
 8.两个关键因子：初始容量、加载因子。<br>
 ### 内部实现
-从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下如所示。
+    从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下如所示。
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/3.png)
 ###  分析HashMap的put方法
 HashMap的put方法执行过程可以通过下图来理解:
@@ -26,8 +26,8 @@ HashMap的put方法执行过程可以通过下图来理解:
 5.遍历table[i]，判断链表长度是否大于8，大于8的话把链表转换为红黑树，在红黑树中执行插入操作，否则进行链表的插入操作；遍历过程中若发现key已经存在直接覆盖value即可；<br>
 6.插入成功后，判断实际存在的键值对数量size是否超多了最大容量threshold，如果超过，进行扩容。<br>
 ### 扩容机制分析
-  扩容(resize)就是重新计算容量，向HashMap对象里不停的添加元素，而HashMap对象内部的数组无法装载更多的元素时，对象就需要扩大数组的长度，以便能装入更多的元素。当然Java里的数组是无法自动扩容的，方法是使用一个新的数组代替已有的容量小的数组，就像我们用一个小桶装水，如果想装更多的水，就得换大水桶。
-  它同一位置上新元素总会被放在链表的头部位置；这样先放在一个索引上的元素终会被放到Entry链的尾部(如果发生了hash冲突的话），这一点和Jdk1.8有区别，下文详解。在旧数组中同一条Entry链上的元素，通过重新计算索引位置后，有可能被放到了新数组的不同位置上。
+扩容(resize)就是重新计算容量，向HashMap对象里不停的添加元素，而HashMap对象内部的数组无法装载更多的元素时，对象就需要扩大数组的长度，以便能装入更多的元素。当然Java里的数组是无法自动扩容的，方法是使用一个新的数组代替已有的容量小的数组，就像我们用一个小桶装水，如果想装更多的水，就得换大水桶。
+>它同一位置上新元素总会被放在链表的头部位置；这样先放在一个索引上的元素终会被放到Entry链的尾部(如果发生了hash冲突的话），这一点和Jdk1.8有区别，下文详解。在旧数组中同一条Entry链上的元素，通过重新计算索引位置后，有可能被放到了新数组的不同位置上。
 下面举个例子说明下扩容过程。假设了我们的hash算法就是简单的用key mod 一下表的大小（也就是数组的长度）。其中的哈希桶数组table的size=2， 所以key = 3、7、5，put顺序依次为 5、7、3。在mod 2以后都冲突在table[1]这里了。这里假设负载因子 loadFactor=1，即当键值对的实际大小size 大于 table的实际大小时进行扩容。接下来的三个步骤是哈希桶数组 resize成4，然后所有的Node重新rehash的过程。
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/6.png)<br>
   下面我们讲解下JDK1.8做了哪些优化。经过观测可以发现，我们使用的是2次幂的扩展(指长度扩为原来2倍)，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。看下图可以明白这句话的意思，n为table的长度，图（a）表示扩容前的key1和key2两种key确定索引位置的示例，图（b）表示扩容后key1和key2两种key确定索引位置的示例，其中hash1是key1对应的哈希与高位运算结果。
@@ -64,13 +64,13 @@ Map.Entry实体中具有几个方法:<br>
 HashMap中基本的public方法也差不多这几个，并且方法内容差不多。<br>
 ## `LinkedHashMap`
 ### 什么`LinkedHashMap`
-  LinkedHashMap是Map接口的哈希表和链接列表实现，具有可预知的迭代顺序。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。<br>
-LinkedHashMap实现与HashMap的不同之处在于，后者维护着一个运行于所有条目的双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。<br>
-注意，此实现不是同步的。如果多个线程同时访问链接的哈希映射，而其中至少一个线程从结构上修改了该映射，则它必须保持外部同步。<br>
+>LinkedHashMap是Map接口的哈希表和链接列表实现，具有可预知的迭代顺序。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。<br>
+>LinkedHashMap实现与HashMap的不同之处在于，后者维护着一个运行于所有条目的双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。<br>
+>注意，此实现不是同步的。如果多个线程同时访问链接的哈希映射，而其中至少一个线程从结构上修改了该映射，则它必须保持外部同步。<br>
 ### `LinkedHashMap`的实现
-   对于LinkedHashMap而言，它继承与HashMap、底层使用哈希表与双向链表来保存所有元素。其基本操作与父类HashMap相似，它通过重写父类相关的方法，来实现自己的链接列表特性。下面我们来分析LinkedHashMap的源代码：<br>
+对于LinkedHashMap而言，它继承与HashMap、底层使用哈希表与双向链表来保存所有元素。其基本操作与父类HashMap相似，它通过重写父类相关的方法，来实现自己的链接列表特性。下面我们来分析LinkedHashMap的源代码：<br>
  1) Entry元素：<br>
-LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数组中保存的元素Entry，该Entry除了保存当前对象的引用外，还保存了其上一个元素before和下一个元素after的引用，从而在哈希表的基础上又构成了双向链接列表。<br>
+        LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数组中保存的元素Entry，该Entry除了保存当前对象的引用外，还保存了其上一个元素before和下一个元素after的引用，从而在哈希表的基础上又构成了双向链接列表。<br>
    ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedHashMap.jpg)
 ### `LinkedHashMap`的特点
   1.存储的顺序与插入的顺序一致<br>
@@ -78,9 +78,9 @@ LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数�
   3.迭代的时候与输出的顺序一致<br>
 ### 重要方法分析
  `newNode`函数<br>
-  此函数在HashMap类中也有实现，LinkedHashMap重写了该函数，所以当实际对象为LinkedHashMap，桶中结点类型为Node时，我们调用的是LinkedHashMap的newNode函数，而非HashMap的函数，newNode函数会在调用put函数时被调用。可以看到，除了新建一个结点之外，还把这个结点链接到双链表的末尾了，这个操作维护了插入顺序。<br>
+此函数在HashMap类中也有实现，LinkedHashMap重写了该函数，所以当实际对象为LinkedHashMap，桶中结点类型为Node时，我们调用的是LinkedHashMap的newNode函数，而非HashMap的函数，newNode函数会在调用put函数时被调用。可以看到，除了新建一个结点之外，还把这个结点链接到双链表的末尾了，这个操作维护了插入顺序。<br>
   `afterNodeAccess`函数<br>
-  此函数在很多函数（如put）中都会被回调，LinkedHashMap重写了HashMap中的此函数。若访问顺序为true，且访问的对象不是尾结点，则下面的图展示了访问前和访问后的状态，假设访问的结点为结点3:<br>
+此函数在很多函数（如put）中都会被回调，LinkedHashMap重写了HashMap中的此函数。若访问顺序为true，且访问的对象不是尾结点，则下面的图展示了访问前和访问后的状态，假设访问的结点为结点3:<br>
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/linkedhashmap2.jpg)<br>
   `transferLinks`函数<br>
   此函数用dst结点替换结点，示意图如下:<br>
@@ -88,28 +88,28 @@ LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数�
   其他的使用方法基本和HashMap差不多。
 ## `TreeMap`
 ### `TreeMap的基本概念：`
-1.TreeMap集合是基于红黑树（Red-Black tree）的 NavigableMap实现。该集合最重要的特点就是可排序，该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。这句话是什么意思呢？就是说TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。<br>
+>1.TreeMap集合是基于红黑树（Red-Black tree）的 NavigableMap实现。该集合最重要的特点就是可排序，该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。这句话是什么意思呢？就是说TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。<br>
 2.根据上一条，我们要想使用TreeMap存储并排序我们自定义的类（如User类），那么必须自己定义比较机制：一种方式是User类去实现Java.lang.Comparable接口，并实现其compareTo()方法。另一种方式是写一个类（如MyCompatator）去实现java.util.Comparator接口，并实现compare()方法，然后将MyCompatator类实例对象作为TreeMap的构造方法参数进行传参。<br>
 3.TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
 ### `红黑树简介 `
-红黑树又称红-黑二叉树，它首先是一颗二叉树，它具体二叉树所有的特性。同时红黑树更是一颗自平衡的排序二叉树。<br> 
-1、每个节点都只能是红色或者黑色 <br>
-2、根节点是黑色 <br>
-3、每个叶节点（NIL节点，空节点）是黑色的。 <br>
-4、如果一个结点是红的，则它两个子节点都是黑的。也就是说在一条路径上不能出现相邻的两个红色结点。 <br>
-5、从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 <br>
+>红黑树又称红-黑二叉树，它首先是一颗二叉树，它具体二叉树所有的特性。同时红黑树更是一颗自平衡的排序二叉树。<br> 
+        1、每个节点都只能是红色或者黑色 <br>
+        2、根节点是黑色 <br>
+        3、每个叶节点（NIL节点，空节点）是黑色的。 <br>
+        4、如果一个结点是红的，则它两个子节点都是黑的。也就是说在一条路径上不能出现相邻的两个红色结点。 <br>
+        5、从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 <br>
 如图:<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/111.jpg)<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/1111.jpg)<br>
 #### `数据结构设计`
-和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
+>和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
 作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/222.jpg)<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/2222.jpg)<br>
 #### `红黑树的插入操作`
-红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
-默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
+>红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
+  默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
 红黑树插入节点操作产生的不平衡来源于当前插入点和父节点的颜色冲突导致的（都是红色，违反规则2）。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/333.jpg)<br>
-如图4所示，由于节点插入之前红黑树是平衡的，因此可以断定祖父节点g必存在（规则1：根节点必须是黑色），且是黑色（规则2：不会有连续的红色节点），而叔父节点u颜色不确定，因此可以把问题分为两大类：<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/3333.jpg)<br>
+  如图4所示，由于节点插入之前红黑树是平衡的，因此可以断定祖父节点g必存在（规则1：根节点必须是黑色），且是黑色（规则2：不会有连续的红色节点），而叔父节点u颜色不确定，因此可以把问题分为两大类：<br>
 1、叔父节点是黑色（若是空节点则默认为黑色）<br>
 这种情况下通过旋转和变色操作可以使红黑树恢复平衡。但是考虑当前节点n和父节点p的位置又分为四种情况：<br>
 A、n是p左子节点，p是g的左子节点。<br>
@@ -131,21 +131,21 @@ D、n是p右子节点，p是g的左子节点。<br>
   当叔父节点是红色时，则不能直接通过上述方式处理了（把前边的所有情况的u节点看作红色，会发现节点u和g是红色冲突的）。但是我们可以交换g与p，u节点的颜色完成当前冲突的解决。<br>
  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shufuhong.jpg)<br>
  但是仅仅这样做颜色交换是不够的，因为祖父节点g的父节点（记作gp）如果也是红色的话仍然会有冲突（g和gp是连续的红色，违反规则2）。为了解决这样的冲突，我们需要从当前插入点n向根节点root回溯两次。<br>
-第一次回溯时处理所有拥有两个红色节点的节点，并按照图9中的方式交换父节点g与子节点p，u的颜色，并暂时忽略gp和p的颜色冲突。如果根节点的两个子节点也是这种情况，则在颜色交换完毕后重新将根节点设置为黑色。<br>
-第二次回溯专门处理连续的红色节点冲突。由于经过第一遍的处理，在新插入点n的路径上一定不存在同为红色的兄弟节点了。而仍出现gp和p的红色冲突时，gp的兄弟节点（gu）可以断定为黑色，这样就回归前边讨论的叔父节点为黑色时的情况处理。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/xiaochu.jpg)
+  第一次回溯时处理所有拥有两个红色节点的节点，并按照图9中的方式交换父节点g与子节点p，u的颜色，并暂时忽略gp和p的颜色冲突。如果根节点的两个子节点也是这种情况，则在颜色交换完毕后重新将根节点设置为黑色。<br>
+  第二次回溯专门处理连续的红色节点冲突。由于经过第一遍的处理，在新插入点n的路径上一定不存在同为红色的兄弟节点了。而仍出现gp和p的红色冲突时，gp的兄弟节点（gu）可以断定为黑色，这样就回归前边讨论的叔父节点为黑色时的情况处理。<br>
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/xiaochu.jpg)<br>
  由于发生冲突的两个红色节点位置可能是任意的，因此会出现上述的四种旋转情况。不过我们把靠近叶子的红色节点（g）看作新插入的节点，这样面对A，B情况则把p的父节点gp作为旋转轴，旋转后gp会是新子树的根，而面对C，D情况时把p作为旋转轴即可，旋转后p为新子树的根（因此可以把四种旋转方式封装起来）。
 在第二次回溯时，虽然每次遇到红色冲突旋转后都会提升g和gp节点的位置（与根节点的距离减少），但是无论g和gp谁是新子树的根都不会影响新插入节点n到根节点root路径的回溯，而且一旦新子树的根到达根节点（parent指针为空）就可以停止回溯了。<br>
-通过以上的树重新平衡策略可以完美地解决红黑树插入节点的平衡问题。<br><br>
+通过以上的树重新平衡策略可以完美地解决红黑树插入节点的平衡问题。<br>
 #### `红黑树的删除操作`
-由于红黑树就是二叉搜索树，因此节点的删除方式和二叉搜索树相同。不过红黑树删除操作的难点不在于节点的删除，而在于删除节点后的调整操作。因此红黑树的删除操作分为两步，首先确定被删除节点的位置，然后调整红黑树的平衡性。<br>
-先考虑删除节点的位置，如果待删除节点拥有唯一子节点或没有子节点，则将该节点删除，并将其子节点（或空节点）代替自身的位置。如果待删除节点有两个子节点，则不能将该节点直接删除。而是从其右子树中选取最小值节点（或左子树的最大值节点）作为删除节点（该节点一定没有两个子节点了，否则还能取更小的值）。当然在删除被选取的节点之前，需要将被选取的节点的数据拷贝到原本需要删除的节点中。选定删除节点位置的情况如图11所示，这和二叉搜索树的节点删除完全相同。<br>
+>由于红黑树就是二叉搜索树，因此节点的删除方式和二叉搜索树相同。不过红黑树删除操作的难点不在于节点的删除，而在于删除节点后的调整操作。因此红黑树的删除操作分为两步，首先确定被删除节点的位置，然后调整红黑树的平衡性。<br>
+  先考虑删除节点的位置，如果待删除节点拥有唯一子节点或没有子节点，则将该节点删除，并将其子节点（或空节点）代替自身的位置。如果待删除节点有两个子节点，则不能将该节点直接删除。而是从其右子树中选取最小值节点（或左子树的最大值节点）作为删除节点（该节点一定没有两个子节点了，否则还能取更小的值）。当然在删除被选取的节点之前，需要将被选取的节点的数据拷贝到原本需要删除的节点中。选定删除节点位置的情况如图11所示，这和二叉搜索树的节点删除完全相同。<br>
  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu0.jpg)<br>
  图11中用红色标记的节点表示被选定的真正删除的节点（节点y）。其中绿色节点（yold）表示原本需要删除的节点，而由于它有两个子节点，因此删除y代替它，并且删除y之前需要将y的值拷贝到yold，注意这里如果是红黑树也不会改变yold的颜色！通过上述的方式，将所有的节点删除问题简化为独立后继（或者无后继）的节点删除问题。然后再考虑删除y后的红黑树平衡调整问题。由于删除y节点后，y的后继节点n会作为y的父节点p的孩子。因此在进行红黑树平衡调整时，n是p的子节点。<br>
-下边考虑平衡性调整问题，首先考虑被删除节点y的颜色。如果y为红色，删除y后不会影响红黑树的平衡性，因此不需要做任何调整。如果y为黑色，则y所在的路径上的黑色节点总数减少1，红黑树失去平衡，需要调整。<br>
-y为黑色时，再考虑节点n的颜色。如果n为红色，因为n是y的唯一后继，如果把n的颜色设置为黑色，那么就能恢复y之前所在路径的黑色节点的总数，调整完成。如果n也是黑色，则需要按照以下四个步骤来考虑。<br>
+  下边考虑平衡性调整问题，首先考虑被删除节点y的颜色。如果y为红色，删除y后不会影响红黑树的平衡性，因此不需要做任何调整。如果y为黑色，则y所在的路径上的黑色节点总数减少1，红黑树失去平衡，需要调整。<br>
+  y为黑色时，再考虑节点n的颜色。如果n为红色，因为n是y的唯一后继，如果把n的颜色设置为黑色，那么就能恢复y之前所在路径的黑色节点的总数，调整完成。如果n也是黑色，则需要按照以下四个步骤来考虑。<br>
 设p是n的父节点，w为n节点的兄弟节点。假定n是p的左子节点，n是p的右子节点情况可以镜像对称考虑。<br>
-步骤1：若w为红色，则断定w的子节点（如果存在的话或者为空节点）和节点p必是黑色（规则2）。此时将w与p的颜色交换，并以w为旋转轴进行左旋转操作，最后将w设定为n的新兄弟节点（原来w的左子树x）。<br>
+  步骤1：若w为红色，则断定w的子节点（如果存在的话或者为空节点）和节点p必是黑色（规则2）。此时将w与p的颜色交换，并以w为旋转轴进行左旋转操作，最后将w设定为n的新兄弟节点（原来w的左子树x）。<br>
 通过这样的转换，将原本红色的w节点情况转换为黑色w节点情况。若w原本就是黑色（或者空节点），则直接进入步骤2。<br>
  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu1.jpg)<br>
  步骤2：无论步骤1是否得到处理，步骤2处理的总是黑色的w节点，此时再考虑w的两个子节点x，y的颜色情况。如果x，y都是黑色节点（或者是空节点，如果父节点w为空节点，认为x，y也都是空节点），此时将w的颜色设置为红色，并将n设定为n的父节点p。此时，如果n为红色，则直接设定n为黑色，调整结束。否则再次回到步骤1做相似的处理。注意节点n发生变化后需要重新设定节点w和p。<br>
@@ -157,3 +157,47 @@ y为黑色时，再考虑节点n的颜色。如果n为红色，因为n是y的唯
  步骤4：该步骤处理w右子节点y为红色的情况，此时w的左子节点x可黑可红。这时将w的右子节点y设置为黑色，并交换w与父节点p的颜色（w原为黑色，p颜色可黑可红），再以w为旋转轴左旋转，红黑树调整算法结束。<br>
 通过该步骤的转换，可以彻底解决红黑树的平衡问题！该步骤的实质是利用左旋恢复节点n上的黑色节点总数，虽然p和w虽然交换了颜色，但它们都是n的祖先，因此n路径上的黑色节点数增加1。同时由于左旋，使得y路径上的黑色节点数减1，恰巧的是y的颜色为红，将y设置为黑便能恢复y节点路径上黑色节点的总数。<br>
  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu4.jpg)<br>
+### `TreeMap的特点`
+        1.无序，不允许重复（无序指元素顺序与添加顺序不一致） 
+        2.TreeMap集合默认会对键进行排序，所以键必须实现自然排序和定制排序中的一种 
+        3.底层使用的数据结构是二叉树
+### `TreeMap的方法及用法`
+>`Entry<K, V> ceilingEntry(K key)` :比key指定的实体大的最小(包含自己)的实体.<br>
+`K    ceilingKey(K key) ` :比key大的最小(包含自己)的key.<br>
+`void  clear()`:清楚TreeMap.
+`Object  clone()`:拷贝.<br>  
+`Comparator<? super K>  comparator()`:返回比较器.<br>
+`boolean   containsKey(Object key)`:判断key是否存在.<br>  
+`NavigableSet<K>   descendingKeySet()`:递减的Key的Set集合.<br>
+`NavigableMap<K, V>  descendingMap()`:递减的NavigableMap.<br> 
+`Set<Entry<K, V>>   entrySet()`:实体Set集合.<br>
+`Entry<K, V>   firstEntry()`:第一个实体.<br>  
+`K       firstKey()`:第一个key.<br>
+`Entry<K, V>  floorEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
+`K    floorKey(K key)`:比key小的最大(包含自己)的key.<br> 
+`V    get(Object key)`:通过key获取实体.<br>
+`NavigableMap<K, V>   headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to.<br>  
+`SortedMap<K, V>  headMap(K toExclusive)`:获取第一个到to位置的Map,不包含to.<br>    
+`Entry<K, V>   higherEntry(K key)`:比key大的最小的实体.<br>
+`K     higherKey(K key)`:比key大的最小的实体.<br>  
+`boolean     isEmpty()`:判断Map是否为空.<br>
+`Set<K>  keySet()`:获取key的Set集合.<br>  
+`Entry<K, V>  lastEntry()`:最后一个实体.<br>  
+`K       lastKey()`:最后一个key.<br>
+`Entry<K, V>  lowerEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
+`K       lowerKey(K key)`:比key小的最大(包含自己)的key.<br>    
+`NavigableSet<K>   navigableKeySet()`:返回一个所有key的NavigableSet集合.<br>
+`Entry<K, V>   pollFirstEntry()`:删除第一个实体并返回.<br>  
+`Entry<K, V>   pollLastEntry()`:删除最后一个实体并返回.<br>
+`V      put(K key, V value)`:存放制定的key-value到TreeMap中.<br>
+`V      remove(Object key)`:移除指定key的实体并返回值.<br> 
+`int    size()`:Map大小.<br>
+`SortedMap<K, V>     subMap(K fromInclusive, K toExclusive)`:返回from到to的Map不包含to.<br>  
+`NavigableMap<K, V>   subMap(K from, boolean fromInclusive, K to, boolean toInclusive)`:返回from到to的Map不包含to根据toInclusive说明是否包含to.<br> 
+`NavigableMap<K, V>  tailMap(K from, boolean inclusive)`:从from到尾部的Map集合,通过inclusive来判断是否包含自己.<br>
+`SortedMap<K, V>     tailMap(K fromInclusive)`::从from到尾部的Map集合,包含自己.<br>  
+#### `接口方法的作用`
+`NaviableMap`接口的作用：
+>实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
+`SortMap`接口的作用:主要用来实现排序功能.<br>
+### `核心的几个功能分析`
