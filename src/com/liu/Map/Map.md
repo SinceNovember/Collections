@@ -108,11 +108,11 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
 >改变节点颜色比较容易理解，因为它违背了规则3。假设现在有个节点E，然后插入节点A和节点S，节点A在左子节点，S在右子节点，目前是平衡的。如果此时再插一个节点，那么就出现了不平衡了，因为红色节点的子节点必须为黑色，但是新插的节点是红色的。所以这时候就必须改变节点颜色了。所以我们将根的两个子节点从红色变为黑色（至于为什么都要变，下面插入的时候会详细介绍），将父节点会从黑色变成红色。可以用如下示意图表示一下：<br>
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/changecolor.jpg)<br>
 #### `左旋`
- >通常左旋操作用于将一个向右倾斜的红色链接旋转为向左链接。示意图如下：
+ >通常左旋操作用于将一个向右倾斜的红色链接旋转为向左链接。示意图如下:<br>
  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate.jpg)
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate2.jpg)<br>
 #### `右旋`
- >右旋可左旋刚好相反，这里不再赘述，直接看示意图：
+ >右旋可左旋刚好相反，这里不再赘述，直接看示意图：<br>
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate.jpg)
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate2.jpg)<br>
   其实现的代码在程序中均有实现.
