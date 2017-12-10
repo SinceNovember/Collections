@@ -99,16 +99,16 @@ LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了数�
 4、如果一个结点是红的，则它两个子节点都是黑的。也就是说在一条路径上不能出现相邻的两个红色结点。 <br>
 5、从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 <br>
 如图:<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/11.jpg)
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/11.jpg)<br>
 #### `数据结构设计`
 和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
 作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/22.jpg)
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/22.jpg)<br>
 #### `红黑树的插入操作`
 红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
 默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
 红黑树插入节点操作产生的不平衡来源于当前插入点和父节点的颜色冲突导致的（都是红色，违反规则2）。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/charu.jpg)
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/charu.jpg)<br>
 如图4所示，由于节点插入之前红黑树是平衡的，因此可以断定祖父节点g必存在（规则1：根节点必须是黑色），且是黑色（规则2：不会有连续的红色节点），而叔父节点u颜色不确定，因此可以把问题分为两大类：<br>
 1、叔父节点是黑色（若是空节点则默认为黑色）<br>
 这种情况下通过旋转和变色操作可以使红黑树恢复平衡。但是考虑当前节点n和父节点p的位置又分为四种情况：<br>
@@ -118,18 +118,18 @@ C、n是p左子节点，p是g的右子节点。<br>
 D、n是p右子节点，p是g的左子节点。<br>
 情况A，B统一称为外侧插入，C，D统一称为内侧插入。之所以这样分类是因为同类的插入方式的解决方式是对称的，可以通过镜像的方法相似完成。<br>
 首先考虑情况A：n是p左子节点，p是g的左子节点。针对该情况可以通过一次右旋转操作，并将p设为黑色，g设为红色完成重新平衡。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/zuocha.jpg)
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/zuocha.jpg)<br>
   右旋操作的步骤是：将p挂接在g节点原来的位置（如果g原是根节点，需要考虑边界条件），将p的右子树x挂到g的左子节点，再把g挂在p的右子节点上，完成右旋操作。这里将最终旋转结果的子树的根节点作为旋转轴（p节点），也就是说旋转轴在旋转结束后称为新子树的根节点！这里需要强调一下和STL的旋转操作的区别，STL的右旋操作的旋转轴视为旋转之前的子树根节点（g节点），不过这并不影响旋转操作的效果。<br>
   类比之下，情况B则需要使用左单旋操作来解决平衡问题，方法和情况A类似。<br>
-![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/youwaiqie.jpg)
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/youwaiqie.jpg)<br>
   接下来，考虑情况C：n是p左子节点，p是g的右子节点。针对该情况通过一次左旋，一次右旋操作（旋转轴都是n，注意不是p），并将n设为黑色，g设为红色完成重新平衡。<br>
-  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/zuoneiqie.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/zuoneiqie.jpg)<br>
   需要注意的是，由于此时新插入的节点是n，它的左右子树x，y都是空节点，但即使如此，旋转操作的结果需要将x，y新的位置设置正确（如果不把p和g的对应分支设置为空节点的话，就会破坏树的结构）。在之后的其他操作中，待旋转的节点n的左右子树可能就不是空节点了。<br>
   类比之下，情况D则需要使用一次右单旋，一次左单旋操作来解决平衡问题，方法和情况C类似。<br>
-   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/youneiqie.jpg)
+   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/youneiqie.jpg)<br>
    2、叔父节点是红色<br>
   当叔父节点是红色时，则不能直接通过上述方式处理了（把前边的所有情况的u节点看作红色，会发现节点u和g是红色冲突的）。但是我们可以交换g与p，u节点的颜色完成当前冲突的解决。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shufuhong.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shufuhong.jpg)<br>
  但是仅仅这样做颜色交换是不够的，因为祖父节点g的父节点（记作gp）如果也是红色的话仍然会有冲突（g和gp是连续的红色，违反规则2）。为了解决这样的冲突，我们需要从当前插入点n向根节点root回溯两次。<br>
 第一次回溯时处理所有拥有两个红色节点的节点，并按照图9中的方式交换父节点g与子节点p，u的颜色，并暂时忽略gp和p的颜色冲突。如果根节点的两个子节点也是这种情况，则在颜色交换完毕后重新将根节点设置为黑色。<br>
 第二次回溯专门处理连续的红色节点冲突。由于经过第一遍的处理，在新插入点n的路径上一定不存在同为红色的兄弟节点了。而仍出现gp和p的红色冲突时，gp的兄弟节点（gu）可以断定为黑色，这样就回归前边讨论的叔父节点为黑色时的情况处理。<br>
@@ -140,20 +140,20 @@ D、n是p右子节点，p是g的左子节点。<br>
 #### `红黑树的删除操作`
 由于红黑树就是二叉搜索树，因此节点的删除方式和二叉搜索树相同。不过红黑树删除操作的难点不在于节点的删除，而在于删除节点后的调整操作。因此红黑树的删除操作分为两步，首先确定被删除节点的位置，然后调整红黑树的平衡性。<br>
 先考虑删除节点的位置，如果待删除节点拥有唯一子节点或没有子节点，则将该节点删除，并将其子节点（或空节点）代替自身的位置。如果待删除节点有两个子节点，则不能将该节点直接删除。而是从其右子树中选取最小值节点（或左子树的最大值节点）作为删除节点（该节点一定没有两个子节点了，否则还能取更小的值）。当然在删除被选取的节点之前，需要将被选取的节点的数据拷贝到原本需要删除的节点中。选定删除节点位置的情况如图11所示，这和二叉搜索树的节点删除完全相同。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/xiaochu.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu0.jpg)<br>
  图11中用红色标记的节点表示被选定的真正删除的节点（节点y）。其中绿色节点（yold）表示原本需要删除的节点，而由于它有两个子节点，因此删除y代替它，并且删除y之前需要将y的值拷贝到yold，注意这里如果是红黑树也不会改变yold的颜色！通过上述的方式，将所有的节点删除问题简化为独立后继（或者无后继）的节点删除问题。然后再考虑删除y后的红黑树平衡调整问题。由于删除y节点后，y的后继节点n会作为y的父节点p的孩子。因此在进行红黑树平衡调整时，n是p的子节点。<br>
 下边考虑平衡性调整问题，首先考虑被删除节点y的颜色。如果y为红色，删除y后不会影响红黑树的平衡性，因此不需要做任何调整。如果y为黑色，则y所在的路径上的黑色节点总数减少1，红黑树失去平衡，需要调整。<br>
 y为黑色时，再考虑节点n的颜色。如果n为红色，因为n是y的唯一后继，如果把n的颜色设置为黑色，那么就能恢复y之前所在路径的黑色节点的总数，调整完成。如果n也是黑色，则需要按照以下四个步骤来考虑。<br>
 设p是n的父节点，w为n节点的兄弟节点。假定n是p的左子节点，n是p的右子节点情况可以镜像对称考虑。<br>
 步骤1：若w为红色，则断定w的子节点（如果存在的话或者为空节点）和节点p必是黑色（规则2）。此时将w与p的颜色交换，并以w为旋转轴进行左旋转操作，最后将w设定为n的新兄弟节点（原来w的左子树x）。<br>
 通过这样的转换，将原本红色的w节点情况转换为黑色w节点情况。若w原本就是黑色（或者空节点），则直接进入步骤2。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu1.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu1.jpg)<br>
  步骤2：无论步骤1是否得到处理，步骤2处理的总是黑色的w节点，此时再考虑w的两个子节点x，y的颜色情况。如果x，y都是黑色节点（或者是空节点，如果父节点w为空节点，认为x，y也都是空节点），此时将w的颜色设置为红色，并将n设定为n的父节点p。此时，如果n为红色，则直接设定n为黑色，调整结束。否则再次回到步骤1做相似的处理。注意节点n发生变化后需要重新设定节点w和p。<br>
 考虑由于之前黑色节点删除导致n的路径上黑色节点数减1，因此可以把节点n看作拥有双重黑色的节点。通过此步骤将n节点上移，使得n与根节点距离减少，更极端的情况是当n成为根节点时，树就能恢复平衡了（因为根节点不在乎多一重黑色）。另外，在n的上移过程中可能通过后续的转换已经让树恢复平衡了。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu2.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu2.jpg)<br>
  步骤3：如果步骤2中的w的子节点不是全黑色，而是左红（x红）右黑（y黑）的话，将x设置为黑色，w设置为红色，并以节点x为旋转轴右旋转，最后将w设定为n的新兄弟（原来的x节点）。<br>
 通过这样的转换，让原本w子节点左红右黑的情况转化为左黑右红的情况。若w的右子节点原本就是红色（左子节点颜色可黑可红），则直接进入步骤4。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu3.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu3.jpg)<br>
  步骤4：该步骤处理w右子节点y为红色的情况，此时w的左子节点x可黑可红。这时将w的右子节点y设置为黑色，并交换w与父节点p的颜色（w原为黑色，p颜色可黑可红），再以w为旋转轴左旋转，红黑树调整算法结束。<br>
 通过该步骤的转换，可以彻底解决红黑树的平衡问题！该步骤的实质是利用左旋恢复节点n上的黑色节点总数，虽然p和w虽然交换了颜色，但它们都是n的祖先，因此n路径上的黑色节点数增加1。同时由于左旋，使得y路径上的黑色节点数减1，恰巧的是y的颜色为红，将y设置为黑便能恢复y节点路径上黑色节点的总数。<br>
- ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu4.jpg)
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/shanchu4.jpg)<br>
