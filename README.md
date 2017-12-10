@@ -99,7 +99,7 @@ private int size;//存储ArrayList的大小，注意不是elementData的长度�
 ### LinkedList关系图
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/LinkList.jpg)
 ### 什么是LinkedList<br>
-List接口的链表实现，并提供了一些队列，栈，双端队列操作的方法；<br>
+List接口的双链表实现，并提供了一些队列，栈，双端队列操作的方法；<br>
 ### LinkedList特点<br>
 与ArrayList对比，LinkedList插入和删除操作更加高效，随机访问速度慢；<br>
 可以作为栈、队列、双端队列数据结构使用；<br>
