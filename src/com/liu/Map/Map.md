@@ -90,7 +90,10 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
 ### `TreeMap的基本概念：`
 >1.TreeMap集合是基于红黑树（Red-Black tree）的 NavigableMap实现。该集合最重要的特点就是可排序，该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。这句话是什么意思呢？就是说TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。<br>
 2.根据上一条，我们要想使用TreeMap存储并排序我们自定义的类（如User类），那么必须自己定义比较机制：一种方式是User类去实现Java.lang.Comparable接口，并实现其compareTo()方法。另一种方式是写一个类（如MyCompatator）去实现java.util.Comparator接口，并实现compare()方法，然后将MyCompatator类实例对象作为TreeMap的构造方法参数进行传参。<br>
-3.TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
+3.非线程安全的不可重复元素的可排序键值对.<br>
+4.继承AbstractMap，为Map的骨架实现；实现了Cloneable，实现浅克隆；实现了序列化接口，并自定义了readObject、writeObject方法.<br>
+5.实现了NavigableMap接口（继承SortedMap），提供了双向查询遍历的相关方法，提供了取得正序及倒序的keySet方法.<br>
+6..TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
 ### `红黑树简介 `
 >红黑树又称红-黑二叉树，它首先是一颗二叉树，它具体二叉树所有的特性。同时红黑树更是一颗自平衡的排序二叉树。<br> 
         1、每个节点都只能是红色或者黑色 <br>
@@ -213,4 +216,4 @@ D、n是p右子节点，p是g的左子节点。<br>
 实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
 `SortMap`接口的作用:<br>
 主要用来实现排序功能.<br>
-### `核心的几个功能分析`
+
