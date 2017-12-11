@@ -191,7 +191,7 @@ D、n是p右子节点，p是g的左子节点。<br>
 `Entry<K, V>  floorEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
 `K    floorKey(K key)`:比key小的最大(包含自己)的key.<br> 
 `V    get(Object key)`:通过key获取实体.<br>
-`NavigableMap<K, V>   headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to.<br>  
+`NavigableMap<K, V>   headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to,但可以通过inclusive来改变如果为true,则包含to.<br>  
 `SortedMap<K, V>  headMap(K toExclusive)`:获取第一个到to位置的Map,不包含to.<br>    
 `Entry<K, V>   higherEntry(K key)`:比key大的最小的实体.<br>
 `K     higherKey(K key)`:比key大的最小的实体.<br>  
