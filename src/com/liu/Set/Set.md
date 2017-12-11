@@ -33,9 +33,9 @@ obj1.compareTo(obj2)方法如果返回0，则说明被比较的两个对象相�
 自然排序是根据集合元素的大小，以升序排列，如果要定制排序，应该使用Comparator接口，实现 int compare(T o1,T o2)方法。
 其底层是使用TreeMap实现，基本上都是使用TreeMap的方法。
 ### `TreeSet`特点
-    1.TreeSet 是二叉树实现的.<br>
-    2.Treeset中的数据是自动排好序的.<br>
-    3.不允许放入null值.<br>
+ >1.TreeSet 是二叉树实现的.<br>
+ >2.Treeset中的数据是自动排好序的.<br>
+ >3.不允许放入null值.<br>
 ### `TreeSet`方法
     TreeSet的方法基本上都是TreeMap中的方法，可查看代码。<br>
 ## `之间的区别`
