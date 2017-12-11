@@ -33,12 +33,12 @@ obj1.compareTo(obj2)方法如果返回0，则说明被比较的两个对象相�
 自然排序是根据集合元素的大小，以升序排列，如果要定制排序，应该使用Comparator接口，实现 int compare(T o1,T o2)方法。
 其底层是使用TreeMap实现，基本上都是使用TreeMap的方法。
 ### `TreeSet`特点
-    1.TreeSet 是二叉树实现的.
-    2.Treeset中的数据是自动排好序的.
-    3.不允许放入null值.
+    1.TreeSet 是二叉树实现的.<br>
+    2.Treeset中的数据是自动排好序的.<br>
+    3.不允许放入null值.<br>
 ### `TreeSet`方法
-    TreeSet的方法基本上都是TreeMap中的方法，可查看代码。
+    TreeSet的方法基本上都是TreeMap中的方法，可查看代码。<br>
 ## `之间的区别`
->1. HashSet是通过HashMap实现的,TreeSet是通过TreeMap实现的,只不过Set用的只是Map的key
-2. Map的key和Set都有一个共同的特性就是集合的唯一性.TreeMap更是多了一个排序的功能.
-3. hashCode和equal()是HashMap用的, 因为无需排序所以只需要关注定位和唯一性即可.
+>1. HashSet是通过HashMap实现的,TreeSet是通过TreeMap实现的,只不过Set用的只是Map的key<br>
+ 2. Map的key和Set都有一个共同的特性就是集合的唯一性.TreeMap更是多了一个排序的功能.<br>
+ 3. hashCode和equal()是HashMap用的, 因为无需排序所以只需要关注定位和唯一性即可.<br>
