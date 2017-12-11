@@ -117,7 +117,7 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate2.jpg)<br>
 #### `右旋`
  >右旋可左旋刚好相反，这里不再赘述，直接看示意图：<br>
-  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate1.jpg)
   ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate2.jpg)<br>
   其实现的代码在程序中均有实现.
 #### `红黑树的插入操作`
