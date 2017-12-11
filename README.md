@@ -6,7 +6,7 @@
 ### ArrayList关系图
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/ArrayList.jpg)
 ### 什么是ArrayList<br>
-  可以简单的认为是一个动态数组；实际上ArrayList就是用数组实现的，长度不够时，调用Arrays.copyOf方法，拷贝当前数组到一个新的长度更大的数组；<br>
+    可以简单的认为是一个动态数组；实际上ArrayList就是用数组实现的，长度不够时，调用Arrays.copyOf方法，拷贝当前数组到一个新的长度更大的数组；<br>
 #### ArrayList特点<br>
 >随机访问速度快，插入和移除性能较差(数组的特点)；<br>
 支持null元素；<br>
@@ -15,9 +15,9 @@
 线程不安全；<br>
 #### ArrayList接口及方法<br>
 ##### Iterable接口<br>
-  实现此接口以便支持foreach语法.<br>
+    实现此接口以便支持foreach语法.<br>
 ##### Collection接口<br>
-int `size()`方法：<br>
+>int `size()`方法：<br>
 返回集合的大小，在ArrayList类中有一个int类型的size私有属性，当调用size方法时，直接返回该属性；<br>
 boolean `isEmpty()`方法：<br>
 判断集合是否为空，在ArrayList中，通过判断size == 0来判断集合是否为空；<br>
