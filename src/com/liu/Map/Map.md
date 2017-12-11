@@ -240,24 +240,24 @@ while(e.hasMoreElements())//判断是否有下一个元素
 </code>
 </pre>
 ### `与HashMap的区别`
->1.继承方式不同
+>`1.继承方式不同`<br>
 HashMap继承与AbstractMap，实现了Map、Cloneable和java.io.Serializable接口。<br>
 HashTable继承与Dictionary，实现了Map、Cloneable和java.io.Serializable接口。<br>
 Dictionary是一个抽象类，它直接继承与Object类，没有实现任何接口。Dictionary是JDK1.0引入的，虽然也支持添加键值对，获取value等基本操作，但是它的API比Map少，而且Dictionary议案是通过Enumeration去遍历，Map则是通过Iterator去遍历。然而由于HashTable也实现了Map接口，所以它也支持Iterator遍历。<br>
-`2.线程安全不同`
+`2.线程安全不同`<br>
 HashMap的方法是非同步的，若要在多线程下使用HashMap，需要我们额外的进行同步处理。对HashMap处理可以使用Collections类提供的synchronizedMap静态方法，或者直接使用JDK5.0之后提供的java.util.concurrent包里的ConcurrentHashMap类。<br>
 HashTable几乎所有方法都是同步的，前面都加了synchronized关键字，它支持多线程。<br>
-3.对null值的处理不同
+`3.对null值的处理不同`<br>
 HashMap的key和value都可以为null。<br>
 HashTable的key和value都不可以为null。<br>
-4.支持的遍历种类不同<br>
+`4.支持的遍历种类不同`<br>
 HashMap只支持Iterator遍历。<br>
 HashTable支持Iterator和Enumeration两种方式遍历。<br>
-5.初始容量和扩容方式不同<br>
+`5.初始容量和扩容方式不同`<br>
 HashMap的默认容量是16,，扩容时，每次将容量变为原来的2倍；<br>
 HashTable的默认容量是11，扩容时，每次将容量变为原来的2倍+1。<br>
-6.添加key-value的hash值算法不同<br>
+`6.添加key-value的hash值算法不同`<br>
   HashMap添加元素时，是使用自定义的哈希算法；<br>
-7.部分API不同<br>
+`7.部分API不同`<br>
  HashMap不支持contains(Object value)方法，没有重写toString()方法；<br>
  HashTable支持contains(Object value)方法，而且重写了toString()方法。<br>
