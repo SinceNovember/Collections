@@ -48,7 +48,7 @@ Object[] `toArray()`方法：<br>
 在ArrayLisy中，上面两个方法都被重写，equals方法依次取出集合中的所有元素进行比较，通过元素的equals方法，判断是否相等，全部相等返回true；<br>
 hashCode方法的计算是通过所有元素的hashCode计算得到；顺便说下hashcode，在java中随处可见，一般用在HashMap, Hashtable, HashSet等等中，可用于减少equals方法的调用，快速访问元素等，其实就是散列表的概念，如比较元素先比较其hashcode，如果hashcode不相等，那么这两个元素肯定不相等，也就不用调用其equals方法了；<br>
 ##### List接口<br>
-除了Collection中定义的方法为，该接口增加了以下方法<br>
+>除了Collection中定义的方法为，该接口增加了以下方法<br>
 `boolean addAll(int index, Collection<? extends E> c)`;<br>
 在ArrayList中，该方法是在指定位置处增加一个集合中的所有元素，该操作涉及数组移动；<br>
 `E get(int index);`<br>
@@ -75,9 +75,9 @@ RandomAccess标识其支持快速随机访问；<br>
 Cloneable标识其支持对象复制；<br>
 Serializable标识其可序列化；<br>
 ##### AbstractCollection类<br>
-  大部分方法前面已经说明过了，不过该类下的contains方法、toArray方法等，遍历的时候都是使用更加通用的迭代器方式进行遍历；<br>
+        大部分方法前面已经说明过了，不过该类下的contains方法、toArray方法等，遍历的时候都是使用更加通用的迭代器方式进行遍历；<br>
 ##### AbstractList类<br>
-  大部分方法前面已经说明过了，不过该类中有两个私有内部类Itr和ListItr，对应的分别是两个迭代器；<br>
+        大部分方法前面已经说明过了，不过该类中有两个私有内部类Itr和ListItr，对应的分别是两个迭代器；<br>
 ##### ArrayList类<br>
 >ArrayList的具体实现<br>
 成员属性：<br>
