@@ -13,6 +13,7 @@
 6.插入、获取的时间复杂度基本是 O(1)（前提是有适当的哈希函数，让元素分布在均匀的位置）<br>
 7.遍历整个 Map 需要的时间与 桶(数组) 的长度成正比（因此初始化时 HashMap 的容量不宜太大）<br>
 8.两个关键因子：初始容量、加载因子。<br>
+9.线程不安全.<br>
 ### 内部实现
     从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下如所示。
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/3.png)
@@ -176,6 +177,7 @@ D、n是p右子节点，p是g的左子节点。<br>
         1.无序，不允许重复（无序指元素顺序与添加顺序不一致） 
         2.TreeMap集合默认会对键进行排序，所以键必须实现自然排序和定制排序中的一种 
         3.底层使用的数据结构是二叉树
+        4.线程不安全.<br>
 ### `TreeMap的方法及用法`
 >`Entry<K, V> ceilingEntry(K key)` :比key指定的实体大的最小(包含自己)的实体.<br>
 `K    ceilingKey(K key) ` :比key大的最小(包含自己)的key.<br>
