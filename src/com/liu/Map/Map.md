@@ -244,7 +244,7 @@ while(e.hasMoreElements())//判断是否有下一个元素
 HashMap继承与AbstractMap，实现了Map、Cloneable和java.io.Serializable接口。<br>
 HashTable继承与Dictionary，实现了Map、Cloneable和java.io.Serializable接口。<br>
 Dictionary是一个抽象类，它直接继承与Object类，没有实现任何接口。Dictionary是JDK1.0引入的，虽然也支持添加键值对，获取value等基本操作，但是它的API比Map少，而且Dictionary议案是通过Enumeration去遍历，Map则是通过Iterator去遍历。然而由于HashTable也实现了Map接口，所以它也支持Iterator遍历。<br>
-2.线程安全不同
+`2.线程安全不同`
 HashMap的方法是非同步的，若要在多线程下使用HashMap，需要我们额外的进行同步处理。对HashMap处理可以使用Collections类提供的synchronizedMap静态方法，或者直接使用JDK5.0之后提供的java.util.concurrent包里的ConcurrentHashMap类。<br>
 HashTable几乎所有方法都是同步的，前面都加了synchronized关键字，它支持多线程。<br>
 3.对null值的处理不同
