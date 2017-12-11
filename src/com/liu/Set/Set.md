@@ -6,8 +6,8 @@
 >HashSet实现Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；特别是它不保证该顺序恒久不变。此类允许使用null元素
 ### `HashSet`特点
 >  1.存入的顺序与遍历输出的顺序不一定一致。
-  2.存入的不允许重复。
-  3.实现基于HashMap
+   2.存入的不允许重复。
+   3.实现基于HashMap
 ### `HashSet`方法
   应为其基本上是调用HashMap，所有其方法都是HashMap中的。
 ## `LinkedHashSet`
@@ -39,7 +39,6 @@ obj1.compareTo(obj2)方法如果返回0，则说明被比较的两个对象相�
 ### `TreeSet`方法
     TreeSet的方法基本上都是TreeMap中的方法，可查看代码。<br>
 ## `之间的区别`
->
- 1. HashSet是通过HashMap实现的,TreeSet是通过TreeMap实现的,只不过Set用的只是Map的key<br>
- 2. Map的key和Set都有一个共同的特性就是集合的唯一性.TreeMap更是多了一个排序的功能.<br>
- 3. hashCode和equal()是HashMap用的, 因为无需排序所以只需要关注定位和唯一性即可.<br>
+> 1. HashSet是通过HashMap实现的,TreeSet是通过TreeMap实现的,只不过Set用的只是Map的key<br>
+> 2. Map的key和Set都有一个共同的特性就是集合的唯一性.TreeMap更是多了一个排序的功能.<br>
+> 3. hashCode和equal()是HashMap用的, 因为无需排序所以只需要关注定位和唯一性即可.<br>
