@@ -90,7 +90,10 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
 ### `TreeMap的基本概念：`
 >1.TreeMap集合是基于红黑树（Red-Black tree）的 NavigableMap实现。该集合最重要的特点就是可排序，该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。这句话是什么意思呢？就是说TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。<br>
 2.根据上一条，我们要想使用TreeMap存储并排序我们自定义的类（如User类），那么必须自己定义比较机制：一种方式是User类去实现Java.lang.Comparable接口，并实现其compareTo()方法。另一种方式是写一个类（如MyCompatator）去实现java.util.Comparator接口，并实现compare()方法，然后将MyCompatator类实例对象作为TreeMap的构造方法参数进行传参。<br>
-3.TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
+3.非线程安全的不可重复元素的可排序键值对.<br>
+4.继承AbstractMap，为Map的骨架实现；实现了Cloneable，实现浅克隆；实现了序列化接口，并自定义了readObject、writeObject方法.<br>
+5.实现了NavigableMap接口（继承SortedMap），提供了双向查询遍历的相关方法，提供了取得正序及倒序的keySet方法.<br>
+6..TreeMap的实现是红黑树算法的实现，应该了解红黑树的基本概念。<br>
 ### `红黑树简介 `
 >红黑树又称红-黑二叉树，它首先是一颗二叉树，它具体二叉树所有的特性。同时红黑树更是一颗自平衡的排序二叉树。<br> 
         1、每个节点都只能是红色或者黑色 <br>
@@ -104,6 +107,18 @@ HashMap中基本的public方法也差不多这几个，并且方法内容差不�
 >和一般的数据结构设计类似，我们用抽象数据类型表示红黑树的节点，使用指针保存节点之间的相互关系。<br> 
 作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>
 ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/2222.jpg)<br>
+#### `变色`
+>改变节点颜色比较容易理解，因为它违背了规则3。假设现在有个节点E，然后插入节点A和节点S，节点A在左子节点，S在右子节点，目前是平衡的。如果此时再插一个节点，那么就出现了不平衡了，因为红色节点的子节点必须为黑色，但是新插的节点是红色的。所以这时候就必须改变节点颜色了。所以我们将根的两个子节点从红色变为黑色（至于为什么都要变，下面插入的时候会详细介绍），将父节点会从黑色变成红色。可以用如下示意图表示一下：<br>
+![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/changecolor.jpg)<br>
+#### `左旋`
+ >通常左旋操作用于将一个向右倾斜的红色链接旋转为向左链接。示意图如下:<br>
+ ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/leftrotate2.jpg)<br>
+#### `右旋`
+ >右旋可左旋刚好相反，这里不再赘述，直接看示意图：<br>
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate.jpg)
+  ![](https://github.com/SinceNovember/Collections/blob/master/extendsimages/rightrotate2.jpg)<br>
+  其实现的代码在程序中均有实现.
 #### `红黑树的插入操作`
 >红黑树的插入操作和查询操作有些类似，它按照二分搜索的方式递归寻找插入点。不过这里需要考虑边界条件——当树为空时需要特殊处理（这里未采用STL对树根节点实现的特殊技巧）。如果插入第一个节点，我们直接用树根记录这个节点，并设置为黑色，否则作递归查找插入（__insert操作）。<br>
   默认插入的节点颜色都是红色，因为插入黑色节点会破坏根路径上的黑色节点总数，但即使如此，也会出现连续红色节点的情况。因此在一般的插入操作之后，出现红黑树约束条件不满足的情况（称为失去平衡）时，就必须要根据当前的红黑树的情况做相应的调整（__rebalance操作）。和AVL树的平衡调整通过旋转操作的实现类似，红黑树的调整操作一般都是通过旋转结合节点的变色操作来完成的。<br>
@@ -176,7 +191,7 @@ D、n是p右子节点，p是g的左子节点。<br>
 `Entry<K, V>  floorEntry(K key)`:比key小的最大(包含自己)的实体.<br>  
 `K    floorKey(K key)`:比key小的最大(包含自己)的key.<br> 
 `V    get(Object key)`:通过key获取实体.<br>
-`NavigableMap<K, V>   headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to.<br>  
+`NavigableMap<K, V>   headMap(K to, boolean inclusive)`:获取第一个到to位置的Map,不包含to,但可以通过inclusive来改变如果为true,则包含to.<br>  
 `SortedMap<K, V>  headMap(K toExclusive)`:获取第一个到to位置的Map,不包含to.<br>    
 `Entry<K, V>   higherEntry(K key)`:比key大的最小的实体.<br>
 `K     higherKey(K key)`:比key大的最小的实体.<br>  
@@ -197,7 +212,8 @@ D、n是p右子节点，p是g的左子节点。<br>
 `NavigableMap<K, V>  tailMap(K from, boolean inclusive)`:从from到尾部的Map集合,通过inclusive来判断是否包含自己.<br>
 `SortedMap<K, V>     tailMap(K fromInclusive)`::从from到尾部的Map集合,包含自己.<br>  
 #### `接口方法的作用`
-`NaviableMap`接口的作用：
->实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
-`SortMap`接口的作用:主要用来实现排序功能.<br>
-### `核心的几个功能分析`
+>`NaviableMap`接口的作用：<br>
+实现了获取lower,floor,higher,ceiling的获得方法，poll弹出的各种操作以及descendingMap以及navigableKeySet的各种方法，最后实现sub,tail,head的Map发放.<br>
+`SortMap`接口的作用:<br>
+主要用来实现排序功能.<br>
+
